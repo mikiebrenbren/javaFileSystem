@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mike.service.OsServiceDeleteTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-05-09T03:31:54" hostname="Michaels-MBP-2" time="0.021">
+  <properties/>
+  <testcase name="delete drive test and test with path not null" classname="com.mike.service.OsServiceDeleteTests" time="0.003"/>
+  <testcase name="test create folder" classname="com.mike.service.OsServiceDeleteTests" time="0.008"/>
+  <testcase name="test zip file deletion" classname="com.mike.service.OsServiceDeleteTests" time="0.005"/>
+  <testcase name="test delete folder" classname="com.mike.service.OsServiceDeleteTests" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl deleteDrive
+INFO: folder deletion successful
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putTextFile
+INFO: text file created with name path.name
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl deleteTextFile
+INFO: folder deletion successful
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putZipFile
+INFO: zip file created with name zip_file
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl deleteZip
+INFO: zip deletion successful
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putFolder
+INFO: folder created with name folder.name_folder
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl deleteFolder
+INFO: folder deletion successful
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+]]></system-err>
+</testsuite>

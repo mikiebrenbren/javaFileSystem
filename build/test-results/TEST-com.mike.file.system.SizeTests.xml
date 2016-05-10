@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mike.file.system.SizeTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2016-05-09T03:31:54" hostname="Michaels-MBP-2" time="0.108">
+  <properties/>
+  <testcase name="test textfile" classname="com.mike.file.system.SizeTests" time="0.062"/>
+  <testcase name="test sum util" classname="com.mike.file.system.SizeTests" time="0.015"/>
+  <testcase name="test zipFile" classname="com.mike.file.system.SizeTests" time="0.01"/>
+  <testcase name="test folder" classname="com.mike.file.system.SizeTests" time="0.005"/>
+  <testcase name="test drive" classname="com.mike.file.system.SizeTests" time="0.003"/>
+  <testcase name="this is a test" classname="com.mike.file.system.SizeTests" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+May 08, 2016 9:31:54 PM com.mike.util.SumUtil sum
+INFO: all files are empty
+]]></system-err>
+</testsuite>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mike.service.OsServiceCreateTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2016-05-09T03:31:54" hostname="Michaels-MBP-2" time="0.028">
+  <properties/>
+  <testcase name="recursive function test for text" classname="com.mike.service.OsServiceCreateTests" time="0.01"/>
+  <testcase name="recursive function test for text when one is already in path " classname="com.mike.service.OsServiceCreateTests" time="0.006"/>
+  <testcase name="test zip file creation" classname="com.mike.service.OsServiceCreateTests" time="0.002"/>
+  <testcase name="test zip file creation when zip file already exists" classname="com.mike.service.OsServiceCreateTests" time="0.002"/>
+  <testcase name="test create folder" classname="com.mike.service.OsServiceCreateTests" time="0.002"/>
+  <testcase name="test create folder if one already exists" classname="com.mike.service.OsServiceCreateTests" time="0.003"/>
+  <testcase name="test drive" classname="com.mike.service.OsServiceCreateTests" time="0.001"/>
+  <testcase name="test create drive when one already exists" classname="com.mike.service.OsServiceCreateTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putTextFile
+INFO: text file created with name path.name
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putZipFile
+INFO: zip file created with name zip_file
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putFolder
+INFO: folder created with name folder.name_folder
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+May 08, 2016 9:31:54 PM com.mike.service.OperatingSystemServiceImpl putDrive
+INFO: drive created with name drive.name
+May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+]]></system-err>
+</testsuite>

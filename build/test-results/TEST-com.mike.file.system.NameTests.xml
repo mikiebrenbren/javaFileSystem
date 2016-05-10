@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mike.file.system.NameTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-05-09T03:31:54" hostname="Michaels-MBP-2" time="0.11">
+  <properties/>
+  <testcase name="text file naming tests" classname="com.mike.file.system.NameTests" time="0.088"/>
+  <testcase name="text file list" classname="com.mike.file.system.NameTests" time="0.001"/>
+  <testcase name=" test enums" classname="com.mike.file.system.NameTests" time="0.021"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mike.file.system.ValidatorTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-05-09T03:31:54" hostname="Michaels-MBP-2" time="0.013">
+  <properties/>
+  <testcase name="global validator" classname="com.mike.file.system.ValidatorTests" time="0.01"/>
+  <testcase name="path validator tests" classname="com.mike.file.system.ValidatorTests" time="0.002"/>
+  <testcase name="file validator test" classname="com.mike.file.system.ValidatorTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[May 08, 2016 9:31:54 PM com.mike.file.system.Drive <init>
+INFO: Drive created
+]]></system-err>
+</testsuite>

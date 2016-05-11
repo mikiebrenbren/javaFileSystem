@@ -20,7 +20,7 @@ public interface OperatingSystemService {
 
     void delete(String name, OsType type, String pathOfParent, Map<String, Drive> drives) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException;
 
-    void move(String name, OsType type, String pathOfParent,String destinationPath, Map<String, Drive> drives) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException;
+    void move(String name, OsType type, String pathOfParent, String destinationPath, Map<String, Drive> drives, List<String> sourcePathAsList) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException;
 
     void writeTofile(String name, String pathOfParent, Map<String, Drive> drives, List<String> pathAsString, String content) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException;
 

@@ -1,11 +1,6 @@
-package com.mike.service
+package com.mike.file.system
 
-import com.mike.enums.OsType
 import com.mike.exceptions.PathAlreadyExistsException
-import com.mike.file.system.Drive
-import com.mike.file.system.Folder
-import com.mike.file.system.TextFile
-import com.mike.file.system.ZipFile
 import spock.lang.Specification
 
 /**
@@ -13,7 +8,8 @@ import spock.lang.Specification
  */
 class OsServiceCreateTests extends Specification {
 
-    OperatingSystemServiceImpl operatingSystemService = new OperatingSystemServiceImpl()
+    OperatingSystem os = new OperatingSystem()
+
 
     def "recursive function test for text"() {
         when:
@@ -38,10 +34,11 @@ class OsServiceCreateTests extends Specification {
         String path = "/this/is/a/path"
         String name = "path.name"
         String textFileName = name + ".txt"
-        operatingSystemService.create(name, OsType.TEXTFILE, path, drives)
+        os.setDrives(drives)
+        os.create(name, TextFile.class, path)
 
         then:
-        folder2.getTextFiles().get(name ) != null
+        folder2.getTextFiles().get(name) != null
         folder2.getTextFiles().get(name).getName() == textFileName
         folder2.getTextFiles().get(name).getPath() == path
 
@@ -63,7 +60,8 @@ class OsServiceCreateTests extends Specification {
 
         String path = "/this/is"
         String name = "name"
-        operatingSystemService.create(name, OsType.TEXTFILE, path, drives)
+        os.setDrives(drives)
+        os.create(name, TextFile.class, path)
 
         then:
         final PathAlreadyExistsException e = thrown()
@@ -90,10 +88,11 @@ class OsServiceCreateTests extends Specification {
         String path = "/this/is/path"
         String name = "zip_file"
         String zipFileName = name + ".zip"
-        operatingSystemService.create(name, OsType.ZIPFILE, path, drives)
+        os.setDrives(drives)
+        os.create(name, ZipFile.class, path)
 
         then:
-        folder1.getZipFiles().get(name ) != null
+        folder1.getZipFiles().get(name) != null
         folder1.getZipFiles().get(name).getName() == zipFileName
         folder1.getZipFiles().get(name).getPath() == path
     }
@@ -119,7 +118,8 @@ class OsServiceCreateTests extends Specification {
 
         String path = "/this/is/path"
         String name = "zip_file"
-        operatingSystemService.create(name, OsType.ZIPFILE, path, drives)
+        os.setDrives(drives)
+        os.create(name, ZipFile.class, path)
 
         then:
         final PathAlreadyExistsException e = thrown()
@@ -136,10 +136,11 @@ class OsServiceCreateTests extends Specification {
 
         String path = "/this/"
         String name = "folder.name_folder"
-        operatingSystemService.create(name, OsType.FOLDER, path, drives)
+        os.setDrives(drives)
+        os.create(name, Folder.class, path)
 
         then:
-        drive.getFolders().get(name ) != null
+        drive.getFolders().get(name) != null
         drive.getFolders().get(name).getName() == name
         drive.getFolders().get(name).getPath() == path
     }
@@ -157,7 +158,8 @@ class OsServiceCreateTests extends Specification {
 
         String name = "folder.name_folder"
         String path = "/this/"
-        operatingSystemService.create(name, OsType.FOLDER, path, drives)
+        os.setDrives(drives)
+        os.create(name, Folder.class, path)
 
         then:
         final PathAlreadyExistsException e = thrown()
@@ -170,10 +172,11 @@ class OsServiceCreateTests extends Specification {
 
         String path = null
         String name = "drive.name"
-        operatingSystemService.create(name, OsType.DRIVE, path, drives)
+        os.setDrives(drives)
+        os.create(name, Drive.class, path)
 
         then:
-        drives.get(name ) != null
+        drives.get(name) != null
         drives.get(name).getName() == name
         drives.get(name).getPath() == path
     }
@@ -188,7 +191,8 @@ class OsServiceCreateTests extends Specification {
 
         String path = null
         String name = "drive.name"
-        operatingSystemService.create(name, OsType.DRIVE, path, drives)
+        os.setDrives(drives)
+        os.create(name, Drive.class, path)
 
         then:
         final PathAlreadyExistsException e = thrown()

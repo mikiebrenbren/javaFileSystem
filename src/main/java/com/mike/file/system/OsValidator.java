@@ -25,16 +25,13 @@ public class OsValidator {
      */
     public void globalValidate(Map<String, Drive> d, OsType type, String path, String name) throws IllegalFileSystemOperationException {
 
-        //drive, path, or name cannot be null, if the drive is empty then the only type you can create is a drive type
-        if (d == null || path == null || name == null || (d.isEmpty() && !OsType.DRIVE.equals(type))) {
-
+        if (StringUtils.isEmpty(path) && !OsType.DRIVE.equals(type)) {
             throw new IllegalFileSystemOperationException(DRIVE_ERR);
         }
 
-        PathUtil pathutil = new PathUtil();
-        List<String> pathList = pathutil.getPathAsList(path);
+        //drive, path, or name cannot be null, if the drive is empty then the only type you can create is a drive type
+        if (d == null || name == null || (d.isEmpty() && !OsType.DRIVE.equals(type))) {
 
-        if (pathList.size() > 1 && !OsType.DRIVE.equals(type)) {
             throw new IllegalFileSystemOperationException(DRIVE_ERR);
         }
 

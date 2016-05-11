@@ -1,18 +1,16 @@
-package com.mike.service
+package com.mike.file.system
 
-import com.mike.enums.OsType
-import com.mike.exceptions.IllegalFileSystemOperationException
 import com.mike.exceptions.PathNotFoundException
-import com.mike.file.system.Drive
-import com.mike.file.system.Folder
+import com.mike.service.OperatingSystemServiceImpl
 import spock.lang.Specification
 
 /**
  * Created by michaelbrennan on 5/8/16.
  */
-class OsServiceDeleteTests extends Specification{
+class OsServiceDeleteTests extends Specification {
 
     OperatingSystemServiceImpl operatingSystemService = new OperatingSystemServiceImpl()
+    OperatingSystem os = new OperatingSystem()
 
     def "delete drive test and test with path not null"() {
         when:
@@ -21,16 +19,15 @@ class OsServiceDeleteTests extends Specification{
         drive.setName("drive.name")
         drives.put("drive.name", drive)  //put the drive in the map
 
-
-        String path = null
         String name = "drive.name"
-        String path2 = "this/is/a/path"
-        operatingSystemService.delete(name, OsType.DRIVE, path, drives)
-        operatingSystemService.delete(name, OsType.DRIVE, path2, drives) //attempt to delete again to test exception
+
+        os.setDrives(drives)
+        os.delete(name)
+        os.delete(name)//attempt to delete again to test exception
 
         then:
         drives.isEmpty()
-        final IllegalFileSystemOperationException e = thrown()
+        final PathNotFoundException e = thrown()
         e.message != null
     }
 
@@ -53,16 +50,17 @@ class OsServiceDeleteTests extends Specification{
         folder2.setName("path")
         folder1.getFolders().put("path", folder2)
 
-        String path = "/this/is/a/path"
+        String path = "/this/is/a/path/"
         String name = "path.name"
         String textFileName = name + ".txt"
-        operatingSystemService.create(name, OsType.TEXTFILE, path, drives)
-        assert folder2.getTextFiles().get(name ) != null
+        os.setDrives(drives)
+        os.create(name, TextFile.class, path)
+        assert folder2.getTextFiles().get(name) != null
         assert folder2.getTextFiles().get(name).getName() == textFileName
         assert folder2.getTextFiles().get(name).getPath() == path
         assert !folder2.getTextFiles().isEmpty()
-        operatingSystemService.delete(name, OsType.TEXTFILE, path, drives)
-        operatingSystemService.delete(name, OsType.TEXTFILE, path, drives) //attempt to delete again to test exception
+        os.delete(path + textFileName)
+        os.delete(path + textFileName) //attempt to delete again to test exception
 
 
         then:
@@ -88,16 +86,17 @@ class OsServiceDeleteTests extends Specification{
         folder.getFolders().put("path", folder1)
 
 
-        String path = "/this/is/path"
+        String path = "/this/is/path/"
         String name = "zip_file"
         String zipFileName = name + ".zip"
-        operatingSystemService.create(name, OsType.ZIPFILE, path, drives)
-        assert folder1.getZipFiles().get(name ) != null
+        os.setDrives(drives)
+        os.create(name, ZipFile.class, path)
+        assert folder1.getZipFiles().get(name) != null
         assert folder1.getZipFiles().get(name).getName() == zipFileName
         assert folder1.getZipFiles().get(name).getPath() == path
         assert !folder1.getZipFiles().isEmpty()
-        operatingSystemService.delete(name, OsType.ZIPFILE, path, drives)
-        operatingSystemService.delete(name, OsType.ZIPFILE, path, drives)//attempt to delete again to test exception
+        os.delete(path + zipFileName)
+        os.delete(path + zipFileName)//attempt to delete again to test exception
 
         then:
         folder1.getTextFiles().isEmpty()
@@ -114,14 +113,15 @@ class OsServiceDeleteTests extends Specification{
 
 
         String path = "/this/"
-        String name = "folder.name_folder"
-        operatingSystemService.create(name, OsType.FOLDER, path, drives)
-        assert drive.getFolders().get(name ) != null
+        String name = "foldername_folder"
+        os.setDrives(drives)
+        os.create(name, Folder.class, path)
+        assert drive.getFolders().get(name) != null
         assert drive.getFolders().get(name).getName() == name
         assert drive.getFolders().get(name).getPath() == path
         assert !drive.getFolders().isEmpty()
-        operatingSystemService.delete(name, OsType.FOLDER, path, drives)
-        operatingSystemService.delete(name, OsType.FOLDER, path, drives)//attempt to delete again to test exception
+        os.delete(path + name)
+        os.delete(path + name)//attempt to delete again to test exception
 
         then:
         drive.getFolders().isEmpty()

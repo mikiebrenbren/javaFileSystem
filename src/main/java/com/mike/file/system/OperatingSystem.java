@@ -73,45 +73,46 @@ public class OperatingSystem {
                 fileName = StringUtils.removeEnd(fileOrFoldertoDelete, ZIP);
                 desiredPath = StringUtils.removeEnd(path, fileName + ZIP);
                 systemService.delete(fileName, OsType.ZIPFILE, desiredPath, drives);
-            }else if (StringUtils.isEmpty(FilenameUtils.getExtension(path))){
+            } else if (StringUtils.isEmpty(FilenameUtils.getExtension(path))) {
                 folderName = StringUtils.substringAfterLast(path, "/");
                 desiredPath = StringUtils.removeEnd(path, "/" + folderName);
                 systemService.delete(folderName, OsType.FOLDER, desiredPath, drives);
-            }else {
+            } else {//no other extension are allowed
                 throw new IllegalFileSystemOperationException("Invalid path");
             }
-        } else{  //if there is only one node in the path we know that we are creating a drive
-            systemService.delete(null, OsType.DRIVE, path, drives);
+        } else {  //if there is only one node in the path we know that we are creating a drive
+            systemService.delete(path, OsType.DRIVE, null, drives);
         }
 
     }
 
-    public void move(String sourcePath, String destination) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException {
-        boolean destinationHasExtension = StringUtils.isNotEmpty(FilenameUtils.getExtension(destination)) ;
-        if (destinationHasExtension) {
+    public void move(String sourcePath, String destination) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException {
+        boolean destinationHasExtension = StringUtils.isNotEmpty(FilenameUtils.getExtension(destination));
+        if (destinationHasExtension) {  //destination cannot be a file, must be a folder or drive
             throw new IllegalFileSystemOperationException("Path is not valid, Please select a folder or drive to navigation into");
         } else {
-            List<String> sourcePathAsList = pathUtil.getPathAsList(sourcePath);
+            List<String> sourcePathAsList = pathUtil.getPathAsList(sourcePath);  //get the path as a list
             if (sourcePathAsList.size() == 1) {
-                throw new IllegalFileSystemOperationException("cannot move drive");
+                throw new IllegalFileSystemOperationException("cannot move drive");  //make sure the list is greater than 1
             }
-            if (pathUtil.removeBeginningOrTrailingSlashes(sourcePath).equals(pathUtil.removeBeginningOrTrailingSlashes(destination))) {
+            if (pathUtil.removeBeginningOrTrailingSlashes(sourcePath).equals(pathUtil.removeBeginningOrTrailingSlashes(destination))) {//if the paths are equal then do nothing
                 if (destination.equals(sourcePath)) {
                     lgr.info("Destination and source path are equal, file or folder will remain");
                 }
             } else {
                 String extension = FilenameUtils.getExtension(sourcePath);
-                extension = StringUtils.isEmpty(extension) ? "folder" : extension;
+                extension = StringUtils.isEmpty(extension) ? "folder" : extension;  //if there is not extension then it must be a folder
                 String fileFolderName = sourcePathAsList.get(sourcePathAsList.size() - 1);
+                sourcePathAsList.remove(sourcePathAsList.size() - 1);
                 switch (extension) {
                     case "txt":
-                        systemService.move(StringUtils.removeEnd(fileFolderName, ".txt"), OsType.TEXTFILE, sourcePath, destination, drives);
+                        systemService.move(StringUtils.removeEnd(fileFolderName, ".txt"), OsType.TEXTFILE, StringUtils.substringBeforeLast(sourcePath, "/"), destination, drives, sourcePathAsList);
                         break;
                     case "zip":
-                        systemService.move(StringUtils.removeEnd(fileFolderName, ".zip"), OsType.ZIPFILE, sourcePath, destination, drives);
+                        systemService.move(StringUtils.removeEnd(fileFolderName, ".zip"), OsType.ZIPFILE, StringUtils.substringBeforeLast(sourcePath, "/"), destination, drives, sourcePathAsList);
                         break;
                     default:
-                        systemService.move(StringUtils.substringAfterLast(sourcePath, "/"), OsType.ZIPFILE, sourcePath, destination, drives);
+                        systemService.move(StringUtils.substringAfterLast(sourcePath, "/"), OsType.FOLDER, StringUtils.substringBeforeLast(sourcePath, "/"), destination, drives, sourcePathAsList);
                 }
             }
         }
@@ -134,7 +135,7 @@ public class OperatingSystem {
         pathAsList.remove(pathAsList.size() - 1);
         if (StringUtils.isNotEmpty(textfile) && textfile.equals("txt")) {
             systemService.writeTofile(StringUtils.removeEnd(StringUtils.substringAfterLast(path, "/"), ".txt"), StringUtils.substringBeforeLast(path, "/"), drives, pathAsList, content);
-        }else {
+        } else {
             throw new TextFileException("invalid input to create text file");
         }
 

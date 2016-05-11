@@ -5,8 +5,8 @@ package com.mike.exceptions;
  */
 public class PathAlreadyExistsException extends Exception {
 
-    public PathAlreadyExistsException(String path) {
-        super("Path already exists for path " + path);
+    public PathAlreadyExistsException(String message) {
+        super(message);
     }
 
 }

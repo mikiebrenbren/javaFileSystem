@@ -11,7 +11,6 @@ import com.mike.util.PathUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -66,12 +65,12 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
         Folder folder = getCurrentFolder(drives, pathOfParent, sourcePathAsList);
         switch (type) {
             case FOLDER:
-                folderToMove = (Folder) navigateMove(sourcePathAsList.subList(1, sourcePathAsList.size()), folder, name, pathOfParent, 0, OsType.FOLDER,  null);
+                folderToMove = (Folder) navigateMove(sourcePathAsList.subList(1, sourcePathAsList.size()), folder, name, pathOfParent, 0, OsType.FOLDER, null);
                 sendToDestination(destinationPath, drives, folderToMove, type, name);
                 delete(name, type, pathOfParent, drives);
                 break;
             case ZIPFILE:
-                zipFile = (ZipFile) navigateMove(sourcePathAsList.subList(1, sourcePathAsList.size()), folder, name, pathOfParent, 0, OsType.ZIPFILE,  null);
+                zipFile = (ZipFile) navigateMove(sourcePathAsList.subList(1, sourcePathAsList.size()), folder, name, pathOfParent, 0, OsType.ZIPFILE, null);
                 sendToDestination(destinationPath, drives, zipFile, type, name);
                 delete(FilenameUtils.removeExtension(name), type, pathOfParent, drives);
                 break;
@@ -81,8 +80,18 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
                 delete(FilenameUtils.removeExtension(name), type, pathOfParent, drives);
                 break;
         }
+    }
 
+    @Override
+    public void writeTofile(String name, String pathOfParent, Map<String, Drive> drives, List<String> pathAsList, String content) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException {
+        nullCheckDrives(drives);
 
+        if (pathAsList.size() == 1) {
+            Map<String, TextFile> textFiles = drives.get(pathAsList.get(0)).getTextFiles();
+            doCrudTypeOnOsType(pathOfParent, name, textFiles, OsType.TEXTFILE, Crud.WRITETOFILE, content);
+        } else {
+            getCurrentNodeBeginNav(drives, pathOfParent, name, OsType.TEXTFILE, Crud.WRITETOFILE, pathAsList, content);
+        }
     }
 
     public void sendToDestination(String destinationPath, Map<String, Drive> drives, FsGen mft, OsType type, String name) throws IllegalFileSystemOperationException, PathNotFoundException, PathAlreadyExistsException, TextFileException {
@@ -111,21 +120,9 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
                     drive.getFolders().put(name, (Folder) mft);
                 }
             }
-        } else{
-            Folder currentFolder = getCurrentFolder(drives, destinationPath, destinationPathAsList);
-            navigateMove(destinationPathAsList.subList(1, destinationPathAsList.size()), currentFolder, name, destinationPath, 0, type,  mft);
-        }
-    }
-
-    @Override
-    public void writeTofile(String name, String pathOfParent, Map<String, Drive> drives, List<String> pathAsList, String content) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException {
-        nullCheckDrives(drives);
-
-        if (pathAsList.size() == 1) {
-            Map<String, TextFile> textFiles = drives.get(pathAsList.get(0)).getTextFiles();
-            doCrudTypeOnOsType(pathOfParent, name, textFiles, OsType.TEXTFILE, Crud.WRITETOFILE, content);
         } else {
-            getCurrentNodeBeginNav(drives, pathOfParent, name, OsType.TEXTFILE, Crud.WRITETOFILE, pathAsList, content);
+            Folder currentFolder = getCurrentFolder(drives, destinationPath, destinationPathAsList);
+            navigateMove(destinationPathAsList.subList(1, destinationPathAsList.size()), currentFolder, name, destinationPath, 0, type, mft);
         }
     }
 
@@ -158,7 +155,7 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
                     if (mft != null) {
                         moveZip(folder, name, path, type, mft);
                         return null;
-                    }else{
+                    } else {
                         return folder.getZipFiles().get(name);
                     }
                 case TEXTFILE:
@@ -185,7 +182,7 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
 
     private void moveFolder(Folder currentFolder, String name, String path, OsType type, FsGen content) throws PathAlreadyExistsException, PathNotFoundException, TextFileException {
         if (currentFolder.getFolders().containsKey(name)) {
-            throw new  PathAlreadyExistsException("path already exists for destination");
+            throw new PathAlreadyExistsException("path already exists for destination");
         }
         Folder content1 = (Folder) content;
         currentFolder.setPath(path);
@@ -194,7 +191,7 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
 
     private void moveZip(Folder currentFolder, String name, String path, OsType type, FsGen content) throws PathAlreadyExistsException, PathNotFoundException, TextFileException {
         if (currentFolder.getZipFiles().containsKey(name)) {
-            throw new  PathAlreadyExistsException("path already exists for destination");
+            throw new PathAlreadyExistsException("path already exists for destination");
         }
         ZipFile zipFile = (ZipFile) content;
         zipFile.setPath(path);
@@ -203,13 +200,12 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
 
     private void moveText(Folder folder, String name, String path, OsType type, FsGen content) throws PathAlreadyExistsException, PathNotFoundException, TextFileException {
         if (folder.getTextFiles().containsKey(name)) {
-            throw new  PathAlreadyExistsException("path already exists for destination");
+            throw new PathAlreadyExistsException("path already exists for destination");
         }
         TextFile textFile = (TextFile) content;
         textFile.setPath(path);
         folder.getTextFiles().put(name, (TextFile) content);
     }
-
 
 
     private void deleteEntity(Map<String, Drive> drives, String path, String name, OsType type, Crud crudType) throws IllegalFileSystemOperationException, PathNotFoundException, PathAlreadyExistsException, TextFileException {
@@ -383,6 +379,7 @@ public class OperatingSystemServiceImpl implements OperatingSystemService {
         }
         TextFile textFile = current.get(name);
         textFile.setContent(content);
+        lgr.info("added content " + "\"" + content + "\"" + " to file " + "\"" + name + "\"");
     }
 
     private void deleteDrive(String name, Map<String, Drive> drives) throws PathNotFoundException {

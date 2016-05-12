@@ -22,10 +22,9 @@ public class SumUtil {
      * @return
      */
     //todo test this better from the drive level
-    public static double sum(Map<String, TextFile> t, Map<String, ZipFile> z, Map<String, Folder> f) {
+    public static double sum(Map<String, TextFile> t, Map<String, ZipFile> z, Map<String, Folder> f, double sum) {
 
         if (isAllEmpty(t, z, f)) {
-            lgr.info("all files are empty");
             return 0;
         }
 
@@ -51,7 +50,8 @@ public class SumUtil {
                     .sum();
         }
 
-        return tSum + zSum + fSum;
+        sum = tSum + zSum + fSum;
+        return sum;
     }
 
     private static boolean isAllEmpty(Map<String, TextFile> t, Map<String, ZipFile> z, Map<String, Folder> f) {

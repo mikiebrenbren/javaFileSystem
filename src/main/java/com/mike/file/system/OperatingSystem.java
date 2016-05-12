@@ -44,13 +44,12 @@ public class OperatingSystem {
         this.drives = drives;
     }
 
-    public void create(String name, Class<FsGen> mft, String pathOfParent) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException {
-        OsType type = systemService.typeExtractor(mft);
+    public void create(String name, OsType type, String pathOfParent) throws PathNotFoundException, PathAlreadyExistsException, IllegalFileSystemOperationException, TextFileException {
         validator.globalValidate(drives, type, pathOfParent, name);
 
         systemService.create(name, type, pathOfParent, drives);
 
-        lgr.info("Created " + systemService.typeExtractor(mft) + " \"" + name + "\" successfully.");
+        lgr.info("Created " + type + " \"" + name + "\" successfully.");
 
     }
 

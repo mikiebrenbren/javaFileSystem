@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Created by michaelbrennan on 5/4/16.
+ * Created by michaelbrennan on 5/4/16.'
+ * This entity can hold folders, files and zip
  */
 public class Drive extends MetaFile implements FsGen {
 
@@ -50,7 +51,9 @@ public class Drive extends MetaFile implements FsGen {
 
     @Override
     public double getSize() {
-        return SumUtil.sum(textFiles, zipFiles, folders);
+        double sum = 0;
+        sum += SumUtil.sum(textFiles, zipFiles, folders, 0);
+        return sum;
     }
 
     @Override

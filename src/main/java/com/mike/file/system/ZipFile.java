@@ -47,7 +47,9 @@ public class ZipFile extends MetaFile implements FsGen{
 
     @Override
     public double getSize() {
-        return SumUtil.sum(textFiles, zipFiles, folders) / 2;
+        double sum = 0;
+        sum += SumUtil.sum(textFiles, zipFiles, folders, 0);
+        return sum;
     }
 
     @Override

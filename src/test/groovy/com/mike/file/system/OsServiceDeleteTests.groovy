@@ -1,15 +1,13 @@
 package com.mike.file.system
 
+import com.mike.enums.OsType
 import com.mike.exceptions.PathNotFoundException
-import com.mike.service.OperatingSystemServiceImpl
 import spock.lang.Specification
 
 /**
  * Created by michaelbrennan on 5/8/16.
  */
 class OsServiceDeleteTests extends Specification {
-
-    OperatingSystemServiceImpl operatingSystemService = new OperatingSystemServiceImpl()
     OperatingSystem os = new OperatingSystem()
 
     def "delete drive test and test with path not null"() {
@@ -54,7 +52,7 @@ class OsServiceDeleteTests extends Specification {
         String name = "path.name"
         String textFileName = name + ".txt"
         os.setDrives(drives)
-        os.create(name, TextFile.class, path)
+        os.create(name, OsType.TEXTFILE, path)
         assert folder2.getTextFiles().get(name) != null
         assert folder2.getTextFiles().get(name).getName() == textFileName
         assert folder2.getTextFiles().get(name).getPath() == path
@@ -90,7 +88,7 @@ class OsServiceDeleteTests extends Specification {
         String name = "zip_file"
         String zipFileName = name + ".zip"
         os.setDrives(drives)
-        os.create(name, ZipFile.class, path)
+        os.create(name, OsType.ZIPFILE, path)
         assert folder1.getZipFiles().get(name) != null
         assert folder1.getZipFiles().get(name).getName() == zipFileName
         assert folder1.getZipFiles().get(name).getPath() == path
@@ -115,7 +113,7 @@ class OsServiceDeleteTests extends Specification {
         String path = "/this/"
         String name = "foldername_folder"
         os.setDrives(drives)
-        os.create(name, Folder.class, path)
+        os.create(name, OsType.FOLDER, path)
         assert drive.getFolders().get(name) != null
         assert drive.getFolders().get(name).getName() == name
         assert drive.getFolders().get(name).getPath() == path

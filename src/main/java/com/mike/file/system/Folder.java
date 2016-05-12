@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by michaelbrennan on 5/4/16.
  */
-public class Folder extends MetaFile implements FsGen{
+public class Folder extends MetaFile implements FsGen {
 
     public Folder() {
         textFiles = new HashMap<>();
@@ -47,8 +47,9 @@ public class Folder extends MetaFile implements FsGen{
 
     @Override
     public double getSize() {
-
-        return SumUtil.sum(textFiles, zipFiles, folders);
+        double sum = 0;
+        sum += SumUtil.sum(textFiles, zipFiles, folders, 0);
+        return sum;
     }
 
     @Override
